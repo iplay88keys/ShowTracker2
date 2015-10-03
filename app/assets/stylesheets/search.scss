@@ -2,9 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.img-box {
-    max-width: 600px;
-    min-width: 300px;
+td img {
+    max-height: 50px;
 }
 
 div.overview {
@@ -12,9 +11,4 @@ div.overview {
     max-width: 500px;
     overflow: hidden;
     text-overflow: ellipses;
-}
-
-td img {
-    max-height: 100%;
-    max-width: 100%;
 }

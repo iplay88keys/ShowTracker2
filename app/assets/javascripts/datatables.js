@@ -3,12 +3,7 @@ $(document).ready(function() {
         'paging': false,
         'searching': false,
         'responsive': true,
-        'dom': 'T<"toolbar">frtip',
         'order': [1, 'asc'],
-        'tableTools': {
-            'sRowSelect': 'single',
-            'aButtons': []
-        },
         'columnDefs': [{
             'targets': 0,
             'visible': false
