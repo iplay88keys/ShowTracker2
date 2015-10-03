@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>My Profile</h3>
+            </div>
+            <div class="panel-body">
+                <h4>Avatar:</h4>                    
+                <p><%= image_tag(@profile.avatar_url, :alt => "Avatar photo") %></p>
+                
+                <h4>Name:</h4>
+                <p><%= @profile.name %></p>
+                
+                <h4>Email:</h4>
+                <p><%= @profile.user.email %></p>
+                <%= button_to 'Edit', edit_profile_path(@profile), :class => "btn btn-default", method: :get %>
+            </div>
+        </div>
+    </div>
+</div>
+

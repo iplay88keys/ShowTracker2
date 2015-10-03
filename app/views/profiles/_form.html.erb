@@ -1,0 +1,55 @@
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= label_tag :email %><br>
+    <%= text_field_tag :email, @profile.user.email %>
+  </div>
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+  <div class="field">
+    <%= label_tag :update_password %>
+    <%= check_box_tag :update_password %>
+  </div>
+  <div class="field password" style="display:none">
+    <%= label_tag :current_password %>
+    <%= password_field_tag :current_password %>
+  </div>
+  <div class="field password" style="display:none">
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="field password" style="display:none">
+    <%= label_tag :password_confirmation %>
+    <%= password_field_tag :password_confirmation %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    $('#update_password').change(function(){
+        if (this.checked) {
+            $('.password').css('display','block');
+        } else {
+            $('.password').css('display','none');
+        }
+    });
+</script>
