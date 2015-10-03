@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003001118) do
+ActiveRecord::Schema.define(version: 20151003211637) do
+
+  create_table "episodes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "episode_id"
+    t.integer  "series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "lsts", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,6 +33,15 @@ ActiveRecord::Schema.define(version: 20151003001118) do
     t.string   "name"
     t.string   "avatar"
     t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string   "name"
+    t.string   "banner"
+    t.string   "overview"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
