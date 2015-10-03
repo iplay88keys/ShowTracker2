@@ -6,7 +6,7 @@ class SearchController < ApplicationController
         #Get the query
         @query = params[:query]
 
-        client = TvdbParty::Search.new("")
+        client = TvdbParty::Search.new(Rails.application.secrets.tvdb_api_key)
         @results = client.search(@query)
     end
 end
