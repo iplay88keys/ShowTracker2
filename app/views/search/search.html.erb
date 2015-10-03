@@ -3,7 +3,7 @@
   <table id="table" class="display dataTable">
     <thead>
       <tr>
-        <th style="display:none;">ID</th>
+        <th>ID</th>
         <th>Series</th>
         <th>Banner</th>
         <th>Overview</th>
@@ -13,7 +13,7 @@
     <tbody>
       <% @results.each do |series| %>
         <tr>
-          <td style="display:none;"><%= series['seriesid'] %></td>
+          <td><%= series['seriesid'] %></td>
           <td><%= series['SeriesName'] %></td>
           <td>
             <div class='img-box'>
