@@ -2,8 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-td img {
-    max-height: 50px;
+td {
+    vertical-align: middle !important;
+    height: 100px;
+
+    img {
+        max-height: 50px;
+    }
+}
+
+td:nth-child(1) {
+    text-align: center;
 }
 
 div.overview {
