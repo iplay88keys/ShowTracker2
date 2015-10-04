@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'search/' => 'search#search', :as => :search
   get 'search/:query' => 'search#search'
 
+  get 'watchlist' => 'lst#show'
+
   scope '/api' do
     scope '/v1' do
       get 'key' => 'lst#key'
