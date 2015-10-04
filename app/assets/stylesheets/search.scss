@@ -9,10 +9,10 @@ td {
     img {
         max-height: 50px;
     }
-}
 
-td:nth-child(1) {
-    text-align: center;
+    .center button, div img {
+        text-align: center;
+    }
 }
 
 div.overview {

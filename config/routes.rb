@@ -5,12 +5,13 @@ Rails.application.routes.draw do
 
   resources :profiles
 
-  resources :songs
-
-  resources :histories
-
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'search/' => 'search#search', :as => :search
   get 'search/:query' => 'search#search'
+
+  scope '/api' do
+    scope '/v1' do
+    end
+  end
 end

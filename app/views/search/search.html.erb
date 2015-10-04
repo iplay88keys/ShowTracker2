@@ -1,6 +1,6 @@
 <h1>Search results for: <%= @query %></h1>
 <% if @results.count > 0 %>
-  <table id="table" class="table table-striped">
+  <table id='table' class='table table-striped'>
     <thead>
       <tr>
         <th>ID</th>
@@ -14,7 +14,7 @@
       <% @results.each do |series| %>
         <tr>
           <td><%= series['seriesid'] %></td>
-          <td><%= series['SeriesName'] %>
+          <td class='center'><%= series['SeriesName'] %>
             <div class='img-box'>
               <img src='http://thetvdb.com/banners/<%= series['banner'] %>' data-src='holder.js/271x50?text=No Banner Found'/>
             </div>
@@ -24,15 +24,17 @@
               <%= series['Overview'] %>
             </div>
           </td>
-          <td>
-            <button class="btn btn-primary">Add to Watchlist</button>
+          <td class='center'>
+            <button class='btn btn-primary'>Series Info</button>
+            <br>
+            <button class='btn btn-primary'>Add to Watchlist</button>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <div class="alert alert-info">
+  <div class='alert alert-info'>
     <p>There were no results for your search, please try another search!</p>
   </div>
 <% end %>
