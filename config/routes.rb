@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   scope '/api' do
     scope '/v1' do
+      get 'user/:id/watchlist' => 'lst#show'
+      post 'user/:id/watchlist' => 'lst#addToWatchList'
     end
   end
 end
