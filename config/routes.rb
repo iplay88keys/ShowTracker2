@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       get 'key' => 'lst#key'
       get 'user/:id/watchlist' => 'lst#show'
       post 'user/:id/watchlist' => 'lst#addToWatchlist'
-      post 'user/:id/watchlist' => 'lst#removeFromWatchlist'
+      delete 'user/:id/watchlist' => 'lst#removeFromWatchlist'
     end
   end
 end
