@@ -15,8 +15,15 @@ class LstController < ApplicationController
       render json: form_authenticity_token.to_s
   end
   def show
-    @lst = Lst.where(user_id: params[:id]).all()
+    if params[:id]
+      @results = Lst.where(user_id: params[:id]).all()
+    else
+      @results = Lst.where(user_id: current_user.id).all()
+    end
     
-    render json: @lst
+    respond_to do |format|
+      format.html  
+      format.json {render json: @results}
+    end
   end
 end
