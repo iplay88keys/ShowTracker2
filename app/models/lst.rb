@@ -1,4 +1,4 @@
 class Lst < ActiveRecord::Base
   belongs_to :user
-  has_many :series
+  belongs_to :series
 end

@@ -48,10 +48,11 @@ class LstController < ApplicationController
   end
 
   def show
+    @results = [];
     if params[:id]
-      @results = Series.joins('INNER JOIN lsts ON series.id = lsts.series_id').where(lsts.user_id: params[:id]).select('series.id, series.name, series.banner, series.overview').all
+      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
     else
-      @results = Series.joins('INNER JOIN lsts ON series.id = lsts.series_id').where(lsts.user_id: current_user.id).select('series.id, series.name, series.banner, series.overview').all
+      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
     end
     
     respond_to do |format|
