@@ -1,5 +1,5 @@
 <h1>Your Watchlist</h1>
-<% if @results.count > 0 %>
+<% if @results.length > 0 %>
   <table id='table' class='table table-striped'>
     <thead>
       <tr>
@@ -26,7 +26,7 @@
           </td>
           <td>
             <p><button class="btn btn-primary">Series Info</button></p>
-            <p><button class="btn btn-warning">Remove From Watchlist</button></p>
+            <p><button onClick="deleteFromWatchlist(<%= current_user.id %>, <%= series['seriesid'] %>)" class="btn btn-warning">Remove From Watchlist</button></p>
           </td>
         </tr>
       <% end %>
@@ -37,3 +37,7 @@
     <p>There are no series in your watchlist, please add some series!</p>
   </div>
 <% end %>
+
+<%= @results.inspect %>
+<%= @results[0].inspect %>
+

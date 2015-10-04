@@ -1,11 +1,11 @@
-function addToWatchlist(userid, series) {
+function deleteFromWatchlist(userid, series) {
   var url = "/api/v1/user/" + userid + "/watchlist";
   data = {};
   data.series_id = series;
   $.ajax({
     url: url,
-    type: "POST",
+    type: "DELETE",
     data: data,
-    success: function(resp){ }
+    success: function(resp) { }
   });
 }

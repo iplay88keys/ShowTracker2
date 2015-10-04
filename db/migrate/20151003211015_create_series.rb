@@ -4,7 +4,6 @@ class CreateSeries < ActiveRecord::Migration
       t.string :name
       t.string :banner
       t.string :overview
-      t.string :status
 
       t.timestamps null: false
     end
