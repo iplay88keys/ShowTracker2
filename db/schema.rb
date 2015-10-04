@@ -40,10 +40,11 @@ ActiveRecord::Schema.define(version: 20151003211637) do
   create_table "series", force: :cascade do |t|
     t.string   "name"
     t.string   "banner"
+    t.string   "banner_thumb"
     t.string   "overview"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,7 +60,6 @@ ActiveRecord::Schema.define(version: 20151003211637) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

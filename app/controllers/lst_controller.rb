@@ -1,6 +1,11 @@
 require 'tvdb_party'
 
 class LstController < ApplicationController
+  include MustBeLoggedIn
+  
+  before_action :prevent_access
+
+
   def addToWatchlist
     data = params[:series_id]
     
@@ -9,7 +14,8 @@ class LstController < ApplicationController
       client = TvdbParty::Search.new(Rails.application.secrets.tvdb_api_key)
       result = client.get_series_by_id(data)
       if Series.where(id: data).first == nil
-        @series = Series.create(id: result.id, name: result.name, banner: result.banners[0], overview: result.overview, status: result.status)
+        banners = result.banners.select {|banner| /graphical/ =~ banner.path}
+        @series = Series.create(id: result.id, name: result.name, banner: banners[0].url, banner_thumb: banners[0].thumb_url, overview: result.overview, status: result.status)
       end
       render json: @lst
     else
@@ -50,9 +56,9 @@ class LstController < ApplicationController
   def show
     @results = [];
     if params[:id]
-      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
+      @results = Series.joins(:lst).where('lsts.user_id = ?', params[:id]).select('series.id, series.name, series.banner, series.banner_thumb, series.overview').all
     else
-      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
+      @results = Series.joins(:lst).where('lsts.user_id = ?', current_user.id).select('series.id, series.name, series.banner, series.banner_thumb, series.overview').all
     end
     
     respond_to do |format|

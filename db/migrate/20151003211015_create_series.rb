@@ -3,7 +3,9 @@ class CreateSeries < ActiveRecord::Migration
     create_table :series do |t|
       t.string :name
       t.string :banner
+      t.string :banner_thumb
       t.string :overview
+      t.string :status
 
       t.timestamps null: false
     end

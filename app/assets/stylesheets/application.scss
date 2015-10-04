@@ -16,3 +16,34 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+td {
+    vertical-align: middle !important;
+    height: 100px;
+
+    img {
+        max-height: 50px;
+    }
+}
+
+td:nth-child(1), td:nth-child(3) {
+    text-align: center;
+}
+
+div.overview {
+    max-height: 100px;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipses;
+    cursor: default;
+}
+
+#tooltip{
+    position: absolute;
+    background: #eee;
+    color: #555;
+    border: 1px solid #888;
+    border-radius: 5px;
+    max-width: 400px;
+    padding:20px;
+}
