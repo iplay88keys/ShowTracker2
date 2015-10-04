@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'watchlist' => 'lst#show'
 
   scope '/api' do
-    scope '/v1' do
+    scope '/v1', defaults: {format: :json} do
       get 'key' => 'lst#key'
       get 'user/:id/watchlist' => 'lst#show'
       post 'user/:id/watchlist' => 'lst#addToWatchlist'

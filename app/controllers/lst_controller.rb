@@ -1,7 +1,8 @@
 class LstController < ApplicationController
   def addToWatchlist
-    data = JSON.parse params[:data]
-    @lst = Lst.create(user_id: params[:id], series_id: data["series_id"], completed: false)
+    puts params
+    data = params[:series_id]
+    @lst = Lst.create(user_id: params[:id], series_id: data, completed: false)
     
     render json: @lst
   end
