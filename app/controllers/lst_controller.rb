@@ -50,9 +50,9 @@ class LstController < ApplicationController
   def show
     @results = [];
     if params[:id]
-      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
+      @results = Series.joins(:lst).where('lsts.user_id = ?', params[:id]).all    
     else
-      @results = Lst.includes(:series).where('lsts.user_id = ?', current_user.id).references(:series).select('series.id, series.name, series.banner, series.overview').all    
+      @results = Series.joins(:lst).where('lsts.user_id = ?', current_user.id).all    
     end
     
     respond_to do |format|
