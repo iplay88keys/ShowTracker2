@@ -9,13 +9,9 @@ td {
     img {
         max-height: 50px;
     }
-
-    .center button, div img {
-        text-align: center;
-    }
 }
 
-td:nth-child(3) {
+td:nth-child(1), td:nth-child(3) {
     text-align: center;
 }
 
