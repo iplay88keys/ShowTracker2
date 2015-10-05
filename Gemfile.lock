@@ -149,8 +149,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    turbolinks (2.5.3)
-      coffee-rails
     tvdb_party (0.8.1)
       httparty (>= 0.6.1)
     tzinfo (1.2.2)
@@ -184,7 +182,6 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
-  turbolinks
   tvdb_party
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
