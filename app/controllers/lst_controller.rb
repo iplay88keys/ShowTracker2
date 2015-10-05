@@ -15,7 +15,7 @@ class LstController < ApplicationController
       result = client.get_series_by_id(data)
       if Series.where(id: data).first == nil
         banners = result.banners.select {|banner| /graphical/ =~ banner.path}
-        @series = Series.create(id: result.id, name: result.name, banner: banners[0].url, banner_thumb: banners[0].thumb_url, overview: result.overview, status: result.status)
+        @series = Series.create(id: result.id, name: result.name, banner: banners[0] ? banners[0].url : nil, banner_thumb: banners[0] ? banners[0].thumb_url : nil, overview: result.overview == nil ? result.overview : "", status: result.status)
       end
       render json: @lst
     else
