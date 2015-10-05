@@ -13,20 +13,20 @@
     <tbody>
       <% @results.each do |series| %>
         <tr>
-          <td><%= series['seriesid'] %></td>
-          <td><%= series['SeriesName'] %>
+          <td><%= series.id %></td>
+          <td><%= series.name %>
             <div class='img-box'>
-              <img src='http://thetvdb.com/banners/<%= series['banner'] %>' data-src='holder.js/271x50?text=No Banner Found'/>
+              <img src='<%= series.banner_thumb ||= 'holder.js/271x50?text=No Banner Found' %>' data-src='holder.js/271x50?text=No Banner Found'/>
             </div>
           </td>
           <td>
             <div class='overview'>
-              <%= series['Overview'] %>
+              <%= series.overview %>
             </div>
           </td>
           <td>
             <p><button class="btn btn-primary">Series Info</button></p>
-            <p><button onClick="addToWatchlist(<%= current_user.id %>, <%= series['seriesid'] %>, '<%= series['SeriesName'] %>')" class="btn btn-primary">Add to Watchlist</button></p>
+            <p><button onClick="addToWatchlist(<%= current_user.id %>, <%= series.id %>, '<%= series.name %>')" class="btn btn-primary">Add to Watchlist</button></p>
           </td>
         </tr>
       <% end %>

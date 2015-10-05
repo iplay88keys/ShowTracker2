@@ -13,10 +13,6 @@ class LstController < ApplicationController
       @lst = Lst.create(user_id: params[:id], series_id: data, completed: false)
       client = TvdbParty::Search.new(Rails.application.secrets.tvdb_api_key)
       result = client.get_series_by_id(data)
-      if Series.where(id: data).first == nil
-        banners = result.banners.select {|banner| /graphical/ =~ banner.path}
-        @series = Series.create(id: result.id, name: result.name, banner: banners[0] ? banners[0].url : nil, banner_thumb: banners[0] ? banners[0].thumb_url : nil, overview: result.overview == nil ? "" : result.overview, status: result.status)
-      end
       render json: @lst
     else
       payload = {
