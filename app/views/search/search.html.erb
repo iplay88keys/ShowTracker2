@@ -1,4 +1,7 @@
 <h1>Search results for: <%= @query %></h1>
+<div class='alert alert-info'>
+  <p>If you don't see what you're looking for, try searching with different terms or click <%= link_to "here", search_path(:query => @query, :remote => "true"), :class => "btn btn-sm btn-primary" %> to search the TVDB as well.</p>
+</div>
 <% if @results.count > 0 %>
   <table id='table' class='table table-striped'>
     <thead>
