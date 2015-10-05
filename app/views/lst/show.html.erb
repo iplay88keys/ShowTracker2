@@ -16,7 +16,7 @@
           <td><%= series.id %></td>
           <td><%= series.name %>
             <div class='img-box'>
-              <img src='<%= series.banner_thumb |= 'holder.js/271x50?text=No Banner Found' %>' data-src='holder.js/271x50?text=No Banner Found'/>
+              <img src='<%= series.banner_thumb ||= 'holder.js/271x50?text=No Banner Found' %>' data-src='holder.js/271x50?text=No Banner Found'/>
             </div>
           </td>
           <td>

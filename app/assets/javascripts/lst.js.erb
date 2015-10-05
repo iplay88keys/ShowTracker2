@@ -11,8 +11,7 @@ function deleteFromWatchlist(userid, series) {
         if (resp["status"] == 200) {
           var table = $('#table').DataTable();
           var result = table.search(series);
-          console.log(series);
-          console.log(result);
+          $('#tooltip').remove();
           result.row().remove();
           table.draw();
         }
