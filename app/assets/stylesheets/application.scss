@@ -38,7 +38,7 @@ div.overview {
     cursor: default;
 }
 
-#tooltip{
+#tooltip {
     position: absolute;
     background: #eee;
     color: #555;
@@ -46,4 +46,12 @@ div.overview {
     border-radius: 5px;
     max-width: 400px;
     padding:20px;
+}
+
+.message-box {
+    position: fixed;
+    height: 75px;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 9999;
 }
