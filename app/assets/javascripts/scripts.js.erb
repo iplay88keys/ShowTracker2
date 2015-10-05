@@ -44,7 +44,7 @@ $(document).ready(function() {
     });
 });
 
-function deleteFromWatchlist(userid, series) {
+function deleteFromWatchlist(userid, series, name) {
   if(deleteItem()) {
     var url = "/api/v1/user/" + userid + "/watchlist";
     data = {};
@@ -61,14 +61,14 @@ function deleteFromWatchlist(userid, series) {
           result.row().remove();
           table.draw();
 
-          createAlert("success", "Series successfully deleted from watchlist");
+          createAlert("success", name + " successfully deleted from watchlist");
         }
       }
     });
   }
 }
 
-function addToWatchlist(userid, series) {
+function addToWatchlist(userid, series, name) {
   var url = "/api/v1/user/" + userid + "/watchlist";
   data = {};
   data.series_id = series;
@@ -77,7 +77,7 @@ function addToWatchlist(userid, series) {
     type: "POST",
     data: data,
     success: function(resp){
-        createAlert("success", "Series successfully added to watchlist");
+        createAlert("success", name + " successfully added to watchlist");
     }
   });
 }
@@ -93,6 +93,9 @@ function createAlert(type, text) {
     html = $("<div class='alert alert-" + type + " alert-dismissable'>").append($("<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>")).append("<p>" + text  + "</p>");
     $(".message-box").empty();
     $(".message-box").append(html);
+    if(!$(".message-box").attr("style")) {
+      $(".message-box").add("style", "display:none;");
+    }
     $(".message-box").removeAttr("style");
     setTimeout(function(){ $('.message-box').fadeOut() }, 10000);
 }
