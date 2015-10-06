@@ -23,5 +23,5 @@
 set :output, "log/cron_log.log"
 
 every 12.hours do
-  runner "CronJob.updateDatabase"
+  #runner "CronJob.updateDatabase"
 end
