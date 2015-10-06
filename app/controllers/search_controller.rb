@@ -1,4 +1,4 @@
-require 'tvdb_party'
+require 'tvdbr'
 
 class SearchController < ApplicationController
   include MustBeLoggedIn
@@ -12,15 +12,14 @@ class SearchController < ApplicationController
     # Search the remote database if remote is true
     if params[:remote]
       # Create the client
-      client = TvdbParty::Search.new(Rails.application.secrets.tvdb_api_key)
-      @results = client.search(@query)
+      client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
+      @results = client.find_all_series_by_title(@query)
       
       # For each result, check if it is stored in the database
       @results.each do |result|
-        if Series.where(id: result["seriesid"]).first == nil
-          result = client.get_series_by_id(result["seriesid"])
-          banners = result.banners.select {|banner| /graphical/ =~ banner.path}
-          @series = Series.create(id: result.id, name: result.name, banner: banners[0] ? banners[0].url : nil, banner_thumb: banners[0] ? banners[0].thumb_url : nil, overview: result.overview == nil ? "" : result.overview, status: result.status)
+        if Series.where(id: result.id).first == nil
+          result = client.find_series_by_id(result.id)
+          @series = Series.create(id: result.id, name: result.series_name, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status)
         end
       end
     end
