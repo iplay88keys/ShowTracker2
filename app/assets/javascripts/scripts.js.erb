@@ -16,7 +16,7 @@ jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch
       }
     }
     else if (this.fnGetData(i, iColumn) == sSearch ) {
-            aOut.push( i );
+      aOut.push( i );
     }
   }
  
@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
 });
 
-function deleteFromWatchlist(element, userid, series, name) {
+function deleteFromWatchlist(userid, series, name) {
   if(deleteItem()) {
     var url = "/api/v1/user/" + userid + "/watchlist";
     data = {};
