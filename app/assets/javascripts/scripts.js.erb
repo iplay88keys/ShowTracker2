@@ -44,7 +44,7 @@ $(document).ready(function() {
     });
 });
 
-function deleteFromWatchlist(userid, series, name) {
+function deleteFromWatchlist(element, userid, series, name) {
   if(deleteItem()) {
     var url = "/api/v1/user/" + userid + "/watchlist";
     data = {};
@@ -56,9 +56,8 @@ function deleteFromWatchlist(userid, series, name) {
       success: function(resp) {
         if (resp["status"] == 200) {
           var table = $('#table').DataTable();
-          var result = table.search(series);
           $('#tooltip').remove();
-          result.row().remove();
+          table.row($(element).parent().parent().parent().index()).remove();
           table.draw();
 
           createAlert("success", name + " successfully deleted from watchlist");
