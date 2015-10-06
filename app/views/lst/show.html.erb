@@ -26,7 +26,7 @@
           </td>
           <td>
             <p><button class="btn btn-primary">Series Info</button></p>
-            <p><button onClick="deleteFromWatchlist(<%= current_user.id %>, <%= series.id %>, '<%= series.name %>')" class="btn btn-warning">Remove From Watchlist</button></p>
+            <p><button onClick="deleteFromWatchlist(this, <%= current_user.id %>, <%= series.id %>, '<%= series.name %>')" class="btn btn-warning">Remove From Watchlist</button></p>
           </td>
         </tr>
       <% end %>

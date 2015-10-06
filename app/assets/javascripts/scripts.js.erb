@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
 });
 
-function deleteFromWatchlist(userid, series, name) {
+function deleteFromWatchlist(element, userid, series, name) {
   if(deleteItem()) {
     var url = "/api/v1/user/" + userid + "/watchlist";
     data = {};
