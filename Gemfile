@@ -21,7 +21,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
 gem 'holder_rails'
 gem 'tvdb_party'
 gem 'carrierwave'
