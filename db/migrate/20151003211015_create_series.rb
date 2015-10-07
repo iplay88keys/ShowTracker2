@@ -6,6 +6,7 @@ class CreateSeries < ActiveRecord::Migration
       t.string :banner_thumb, :null => true
       t.string :overview
       t.string :status
+      t.integer :last_updated
 
       t.timestamps null: false
     end

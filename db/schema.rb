@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20151003211637) do
     t.string   "banner_thumb"
     t.string   "overview"
     t.string   "status"
+    t.integer  "last_updated"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
