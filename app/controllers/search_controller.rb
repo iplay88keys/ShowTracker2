@@ -31,7 +31,7 @@ class SearchController < ApplicationController
     # Search based on the terms
     terms.each do |term|
       # Search the series names
-      queryResults = Series.where("series.name like ?", "%#{term}%")
+      queryResults = Series.where("series.name like ?", "%#{term}%").select('series.id, series.name, series.banner, series.banner_thumb, series.overview')
       
       # Insert the result into our array to be returned
       queryResults.each do |queryResult|

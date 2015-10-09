@@ -25,7 +25,7 @@
             </div>
           </td>
           <td>
-            <p><button class="btn btn-primary">Series Info</button></p>
+            <p><%= button_to('Series Info', series_path(series.id), :class => 'btn btn-primary', :method => :get) %></p>
             <p><button onClick="deleteFromWatchlist(<%= current_user.id %>, <%= series.id %>, '<%= series.name %>')" class="btn btn-warning">Remove From Watchlist</button></p>
           </td>
         </tr>

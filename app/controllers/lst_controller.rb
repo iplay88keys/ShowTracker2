@@ -5,7 +5,6 @@ class LstController < ApplicationController
   
   before_action :prevent_access
 
-
   def addToWatchlist
     data = params[:series_id]
     
