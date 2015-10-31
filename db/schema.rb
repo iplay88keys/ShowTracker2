@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003211637) do
+ActiveRecord::Schema.define(version: 20151031072359) do
 
   create_table "episodes", force: :cascade do |t|
     t.integer  "series_id"
@@ -70,5 +70,14 @@ ActiveRecord::Schema.define(version: 20151003211637) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "watches", force: :cascade do |t|
+    t.integer  "episode_id"
+    t.integer  "user_id"
+    t.integer  "series_id"
+    t.integer  "season_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

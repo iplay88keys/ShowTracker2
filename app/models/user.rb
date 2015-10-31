@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_one :profile
   has_one :lst
+  has_many :episodes, through: :watches
+  has_many :series, through: :watches
+  has_many :watches
 end

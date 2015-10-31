@@ -10,17 +10,18 @@ class EpisodeController < ApplicationController
   end
 
   def addWatched
+    episode_id = params[:ep_id]
+    user_id = params[:user_id]
     series_id = params[:series_id]
-    id = params[:id]
+    season_id = params[:season_id]
     
-    if Lst.where(user_id: id).where(series_id: series_id).first == nil
-      @episode = Lst.create(user_id: id, series_id: series_id, completed: false)
-      if Series.where(id: series_id).first == nil
-        client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
-        result = client.find_series_by_id(series_id)
-        @series = Series.create(id: result.id, name: result.series_name, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
-      end
-      render json: @lst
+    if Watch.where(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id).first == nil
+      Watch.create(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id)
+      payload = {
+        error: "The episode was successfully marked as watched",
+        status: 200
+      }
+      render :json => payload, :status => :ok
     else
       payload = {
           error: "The episode is already marked as watched",
@@ -31,10 +32,12 @@ class EpisodeController < ApplicationController
   end
 
   def removeWatched
+    episode_id = params[:ep_id]
+    user_id = params[:user_id]
     series_id = params[:series_id]
-    id = params[:id]
+    season_id = params[:season_id]
     
-    element = Lst.where(user_id: id).where(series_id: series_id).first
+    element = Watch.where(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id).first
 
     if element == nil
       payload = {
@@ -45,7 +48,7 @@ class EpisodeController < ApplicationController
     else
       element.destroy
       payload = {
-        message: "The episode has successfully marked as unwatched",
+        message: "The episode was successfully marked as unwatched",
         status: 200
       }
       render :json => payload, :status => :ok

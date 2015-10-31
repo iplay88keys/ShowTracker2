@@ -15,6 +15,7 @@
 //= require bootstrap-sprockets
 //= require holder
 //= require_tree .
+
 $(".table-lst").ready(function() {
     if($('.table-lst').length == 0) return;
 
@@ -152,10 +153,20 @@ function addToWatchlist(userid, series, name) {
   });
 }
 
-function addWatched(userid, series, episode, name) {
+function watchedChanged(checkbox, userid, series, episode, season, name) {
+    var checked = checkbox.checked;
+    if(checked === true) {
+        addWatched(userid, series, episode, season, name); 
+    } else {
+        removeWatched(userid, series, episode, season, name);
+    }
+}
+
+function addWatched(userid, series, episode, season, name) {
     var url = "/api/v1/series/" + series + "/episode/" + episode;
     data = {};
     data.user_id = userid;
+    data.season_id = season;
     $.ajax({
         url: url,
         type: "POST",
@@ -170,10 +181,11 @@ function addWatched(userid, series, episode, name) {
     })
 }
 
-function removeWatched(userid, series, episode, name) {
+function removeWatched(userid, series, episode, season, name) {
     var url = "/api/v1/series/" + series + "/episode/" + episode;
     data = {};
     data.user_id = userid;
+    data.season_id = season;
     $.ajax({
         url: url,
         type: "DELETE",
