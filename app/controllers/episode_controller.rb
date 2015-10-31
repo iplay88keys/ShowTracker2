@@ -1,17 +1,20 @@
 require 'tvdbr'
 
-class LstController < ApplicationController
+class EpisodeController < ApplicationController
   include MustBeLoggedIn
   
   before_action :prevent_access
 
-  def addToWatchlist
+  def show
+
+  end
+
+  def addWatched
     series_id = params[:series_id]
     id = params[:id]
     
-    # If the series isn't in the user's watchlist
-    if Lst.where(user_id: id).where(series_id: data).first == nil
-      @lst = Lst.create(user_id: id, series_id: series_id, completed: false)
+    if Lst.where(user_id: id).where(series_id: series_id).first == nil
+      @episode = Lst.create(user_id: id, series_id: series_id, completed: false)
       if Series.where(id: series_id).first == nil
         client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
         result = client.find_series_by_id(series_id)
@@ -20,14 +23,14 @@ class LstController < ApplicationController
       render json: @lst
     else
       payload = {
-          error: "The series already exists in the user's watchlist",
+          error: "The episode is already marked as watched",
           status: 409
       }
       render :json => payload, :status => :conflict
     end
   end
 
-  def removeFromWatchlist
+  def removeWatched
     series_id = params[:series_id]
     id = params[:id]
     
@@ -35,36 +38,18 @@ class LstController < ApplicationController
 
     if element == nil
       payload = {
-        error: "The series does not exist in the user's watchlist",
+        error: "The episode is already not marked as watched",
         status: 404
       }
       render :json => payload, :status => :not_found
     else
       element.destroy
       payload = {
-        message: "The series has been successfuly removed from the user's watchlist",
+        message: "The episode has successfully marked as unwatched",
         status: 200
       }
       render :json => payload, :status => :ok
     end
   end
 
-  def key
-#     'X-CSRF-Token': '<%= form_authenticity_token.to_s %>' 
-      render json: form_authenticity_token.to_s
-  end
-
-  def show
-    @results = [];
-    if params[:id]
-      @results = Series.joins(:lst).where('lsts.user_id = ?', params[:id]).select('series.id, series.name, series.banner, series.banner_thumb, series.overview').all
-    else
-      @results = Series.joins(:lst).where('lsts.user_id = ?', current_user.id).select('series.id, series.name, series.banner, series.banner_thumb, series.overview').all
-    end
-    
-    respond_to do |format|
-      format.html  
-      format.json {render json: @results}
-    end
-  end
 end

@@ -146,10 +146,46 @@ function addToWatchlist(userid, series, name) {
     url: url,
     type: "POST",
     data: data,
-    success: function(resp){
+    success: function(resp) {
         createAlert("success", name + " successfully added to watchlist");
     }
   });
+}
+
+function addWatched(userid, series, episode, name) {
+    var url = "/api/v1/series/" + series + "/episode/" + episode;
+    data = {};
+    data.user_id = userid;
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        success: function(resp) {
+            if(resp["status"] == 200) {
+                createAlert("success", name + " successfully added as watched");
+            } else {
+                createAlert("error", "Something went wrong. Please refresh.")
+            }
+        }
+    })
+}
+
+function removeWatched(userid, series, episode, name) {
+    var url = "/api/v1/series/" + series + "/episode/" + episode;
+    data = {};
+    data.user_id = userid;
+    $.ajax({
+        url: url,
+        type: "DELETE",
+        data: data,
+        success: function(resp) {
+            if(resp["status"] == 200) {
+                createAlert("success", name + " successfully removed from watched");
+            } else {
+                createAlert("error", "Something went wrong. Please refresh.")
+            }
+        }
+    })
 }
 
 function deleteItem() {

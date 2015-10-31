@@ -24,7 +24,7 @@
             <% episodes.each do |episode| %>
               <tr>
                 <td><%= episode.id %></td>
-                <td><input type='checkbox'></td>
+                <td><input type='checkbox' onClick="addWatched(<%= current_user.id %>, <%= id %>, <%= episode.id %>, '<%= j episode.name %>')"/></td>
                 <td><%= episode.season_number != 0 ? episode.season_number : "Special" %></td>
                 <td><%= episode.episode_number %></td>
                 <td><%= episode.name %></td>
