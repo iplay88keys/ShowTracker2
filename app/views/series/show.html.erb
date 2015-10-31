@@ -1,4 +1,21 @@
-<%= @season_count %>
-<%= @episodes.each do |episode| %>
-
+<%= link_to watchlist_path do %>
+  <span class='glyphicon glyphicon-chevron-left'></span> Back to Watchlist
 <% end %>
+<div class='container'> 
+  <img class='banner' src='<%= @info.banner ||= "holder.js/271x50?text=#{@info.name}" %>' data-src='<%= "holder.js/271x50?text=#{@info.name}" %>' />
+  <div class='col-md-2' id="poster">
+    <img src='<%= @info.poster_thumb ||= 'holder.js/680x1000?text=No Poster Found' %>' data-src='holder.js/680x1000?text=No Poster Found'/>
+  </div>
+  <div class='col-md-9' id='overview'>
+    <div class='seasons'>
+      <strong>Season:</strong>
+      <% @seasons.each do |season| %>
+        <%= link_to(season[0], season_path(@id, season[1]), :method => :get) %>
+      <% end %>
+      <%= link_to('All', season_all_path(@id), :method => :get) %>
+    </div>
+    <div style='margin-top: 10px;'>
+      <%= @info.overview  %>
+    </div>
+  </div>
+</div>

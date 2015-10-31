@@ -1,3 +1,11 @@
 // Place all the styles related to the lst controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+td {
+    height: 100px;
+
+    img {
+        max-height: 50px;
+    }
+}

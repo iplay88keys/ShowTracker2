@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   get 'search/:query' => 'search#search'
 
   get 'watchlist' => 'lst#show'
-  get 'series/:id' => 'series#show', :as => :series
-  get 'series/:series_id/episode/:ep_id' => 'episode#show'
+  get 'series/:series_id' => 'series#show', :as => :series
+  get 'series/:series_id/season/all' => 'season#all', :as => :season_all
+  get 'series/:series_id/season/:season_id' => 'season#show', :as => :season
+  get 'series/:series_id/episode/:ep_id' => 'episode#show', :as => :episode
 
   scope '/api' do
     scope '/v1', defaults: {format: :json} do
@@ -22,7 +24,9 @@ Rails.application.routes.draw do
       get 'user/:id/watchlist' => 'lst#show'
       post 'user/:id/watchlist' => 'lst#addToWatchlist'
       delete 'user/:id/watchlist' => 'lst#removeFromWatchlist'
-      get 'series/:id' => 'series#show'
+      get 'series/:series_id' => 'series#show'
+      get 'series/:series_id/season/all' => 'season#all'
+      get 'series/:series_id/season/:season_id' => 'season#show'
       get 'series/:series_id/episode/:ep_id' => 'episode#show'
       post 'series/:series_id/episode/:ep_id' => 'episode#addWatched'
       delete 'series/:series_id/episode/:ep_id' => 'episode#removeWatched'

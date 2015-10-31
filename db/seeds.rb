@@ -11,3 +11,8 @@ user.email = 'test@example.com'
 user.password = '12345678'
 user.password_confirmation = '12345678'
 user.save!
+
+profile = Profile.new
+profile.name = 'Test'
+profile.user_id = user.id
+profile.save!

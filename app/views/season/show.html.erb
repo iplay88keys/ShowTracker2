@@ -1,0 +1,45 @@
+<%= link_to series_path(id), :method => :get do %>
+      <span class='glyphicon glyphicon-chevron-left'></span> Back to Series Overview
+<% end %>
+<div class='container'>
+  <div class='col-md-2' id='poster'>
+    <img src='<%= info.poster_thumb ||= 'holder.js/680x1000?text=No Poster Found' %>' data-src='holder.js/680x1000?text=No Poster Found'/>
+  </div>
+  <div class='col-md-10'>
+    <% if episodes.length > 0 %>
+      <div class='table-season'>
+        <table id='table' class='table table-striped'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Watched</th>
+              <th>Season</th>
+              <th>Episode</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+            
+          <tbody>
+            <% episodes.each do |episode| %>
+              <tr>
+                <td><%= episode.id %></td>
+                <td><input type='checkbox'></td>
+                <td><%= episode.season_number != 0 ? episode.season_number : "Special" %></td>
+                <td><%= episode.episode_number %></td>
+                <td><%= episode.name %></td>
+                <td>
+                  <button class="btn btn-primary">Episode Info</button>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class='alert alert-info'>
+        <p>There were no results for this season, sorry!</p>
+      </div>
+    <% end %>
+  </div>
+</div>

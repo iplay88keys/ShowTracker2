@@ -15,12 +15,13 @@ ActiveRecord::Schema.define(version: 20151003211637) do
 
   create_table "episodes", force: :cascade do |t|
     t.integer  "series_id"
+    t.integer  "episode_number"
     t.string   "name"
-    t.integer  "season"
+    t.integer  "season_number"
     t.integer  "season_id"
     t.string   "overview"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "lsts", force: :cascade do |t|
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 20151003211637) do
 
   create_table "series", force: :cascade do |t|
     t.string   "name"
+    t.string   "poster"
+    t.string   "poster_thumb"
     t.string   "banner"
     t.string   "banner_thumb"
     t.string   "overview"

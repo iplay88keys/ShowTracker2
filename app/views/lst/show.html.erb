@@ -1,37 +1,39 @@
 <h1>Your Watchlist</h1>
 <% if @results.length > 0 %>
-  <table id='table' class='table table-striped'>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Series</th>
-        <th>Overview</th>
-        <th></th>
-      </tr>
-    </thead>
-      
-    <tbody>
-      <% @results.each do |series| %>
+  <div class='table-lst'>
+    <table id='table' class='table table-striped'>
+      <thead>
         <tr>
-          <td><%= series.id %></td>
-          <td><%= series.name %>
-            <div class='img-box'>
-              <img src='<%= series.banner_thumb ||= 'holder.js/271x50?text=No Banner Found' %>' data-src='holder.js/271x50?text=No Banner Found'/>
-            </div>
-          </td>
-          <td>
-            <div class='overview'>
-              <%= series.overview %>
-            </div>
-          </td>
-          <td>
-            <p><%= button_to('Series Info', series_path(series.id), :class => 'btn btn-primary', :method => :get) %></p>
-            <p><button onClick="deleteFromWatchlist(<%= current_user.id %>, <%= series.id %>, '<%= series.name %>')" class="btn btn-warning">Remove From Watchlist</button></p>
-          </td>
+          <th>ID</th>
+          <th>Series</th>
+          <th>Overview</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+        
+      <tbody>
+        <% @results.each do |series| %>
+          <tr>
+            <td><%= series.id %></td>
+            <td><%= series.name %>
+              <div class='img-box'>
+                <img src='<%= series.banner_thumb ||= "holder.js/271x50?text=#{series.name}" %>' data-src='<%= "holder.js/271x50?text=#{series.name}" %>' />
+              </div>
+            </td>
+            <td>
+              <div class='overview'>
+                <%= series.overview %>
+              </div>
+            </td>
+            <td>
+              <p><%= button_to('Series Info', series_path(series.id), :class => 'btn btn-primary', :method => :get) %></p>
+              <p><button onClick="deleteFromWatchlist(<%= current_user.id %>, <%= series.id %>, '<%= j series.name %>')" class="btn btn-warning">Remove From Watchlist</button></p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <div class='alert alert-info'>
     <p>There are no series in your watchlist, please add some series!</p>

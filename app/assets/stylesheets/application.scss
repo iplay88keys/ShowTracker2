@@ -17,13 +17,25 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-td {
-    vertical-align: middle !important;
-    height: 100px;
+#poster {
+    padding: 10px;
 
     img {
-        max-height: 50px;
+        max-width: 100%;
+        border: 2px solid white;
+        outline: 1px solid black;
     }
+}
+
+
+.banner {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
+td {
+    vertical-align: middle !important;
 }
 
 td:nth-child(1), td:nth-child(3) {
@@ -51,7 +63,13 @@ div.overview {
 .message-box {
     position: fixed;
     width: 50%;
+    top: 0px;
+    opacity: .75;
     height: 75px;
     margin-left: 25%;
     z-index: 9999;
+}
+
+.container {
+    max-width: 100%;
 }
