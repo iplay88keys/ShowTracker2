@@ -7,7 +7,7 @@
 <body>
   <div class="wrapper">
     <%= render "partials/header" %>
-    <div class="message-box" style="display: none;">
+    <div class="message-box" <% if !notice && !alert %> style="display: none;" <% end %>>
       <% if notice %>
         <div class="alert alert-success alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

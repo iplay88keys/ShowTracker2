@@ -39,11 +39,11 @@
                 <% if user_signed_in? %>
                     <% if current_user.profile %>
                         <li>
-                            <p class="navbar-text pull-right login">Welcome <%= link_to current_user.profile.name, profile_path(current_user.id), :class => 'navbar-link' %> | <%= link_to 'Logout', destroy_user_session_path, :method => 'delete', :class => 'navbar-link' %> </p>
+                            <p class="navbar-text pull-right login">Welcome <%= link_to current_user.profile.name, profile_path(current_user.profile), :class => 'navbar-link' %> | <%= link_to 'Logout', destroy_user_session_path, :method => 'delete', :class => 'navbar-link' %> </p>
                         </li>    
                     <% else %>
                         <li>
-                            <p class="navbar-text pull-right login">Welcome <%= link_to current_user.email, profile_path(current_user.id), :class => 'navbar-link' %> | <%= link_to 'Logout', destroy_user_session_path, :method => 'delete', :class => 'navbar-link' %> </p>
+                            <p class="navbar-text pull-right login">Welcome <%= link_to current_user.email, new_profile_path, :class => 'navbar-link' %> | <%= link_to 'Logout', destroy_user_session_path, :method => 'delete', :class => 'navbar-link' %> </p>
                         </li>
                     <% end %>
                   <% else %>

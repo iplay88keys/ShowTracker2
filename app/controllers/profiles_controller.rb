@@ -4,13 +4,6 @@ class ProfilesController < ApplicationController
   before_action :prevent_access
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
-  # GET /profiles
-  # GET /profiles.json
-  def index
-    #@profiles = Profile.all
-    redirect_to :home
-  end
-
   # GET /profiles/1
   # GET /profiles/1.json
   def show
@@ -84,18 +77,22 @@ class ProfilesController < ApplicationController
 
   # DELETE /profiles/1
   # DELETE /profiles/1.json
-  def destroy
-    @profile.destroy
-    respond_to do |format|
-      format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  #def destroy
+  #  @profile.destroy
+  #  respond_to do |format|
+  #    format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
+  #    format.json { head :no_content }
+  #  end
+  #end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(params[:id])
+      @profile = Profile.find_by_id(params[:id])
+      if @profile == nil || @profile.user_id != current_user.id
+        flash[:alert] = "Can't access that profile"
+        redirect_to :home
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

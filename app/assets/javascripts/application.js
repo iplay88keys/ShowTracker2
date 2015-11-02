@@ -88,6 +88,14 @@ $(document).ready(function() {
         var height = $(document).outerHeight(true);
         setXY(e, height);
     });
+    
+    $('#update_password').change(function(){
+        if (this.checked) {
+            $('.password').css('display','block');
+        } else {
+            $('.password').css('display','none');
+        }
+    });
 });
 
 jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch, iColumn ) {
@@ -106,8 +114,7 @@ jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch
           aOut.push( i );
         }
       }
-    }
-    else if (this.fnGetData(i, iColumn) == sSearch ) {
+    } else if (this.fnGetData(i, iColumn) == sSearch ) {
       aOut.push( i );
     }
   }
@@ -116,41 +123,45 @@ jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch
 };
 
 function deleteFromWatchlist(userid, series, name) {
-  if(deleteItem()) {
+    if(deleteItem()) {
+        var url = "/api/v1/user/" + userid + "/watchlist";
+        data = {};
+        data.series_id = series;
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            data: data,
+            success: function(resp) {
+                var table = $('#table').DataTable();
+                var index = $('#table').dataTable().fnFindCellRowIndexes(series, 0, 1);
+                $('#tooltip').remove();
+                table.row(index).remove();
+                table.draw();
+              
+                createAlert("success", name + " successfully deleted from watchlist");
+            },
+            error: function(resp) {
+                createAlert("error", "Something went wrong. Please refresh.")
+            }
+        });
+    }
+}
+
+function addToWatchlist(userid, series, name) {
     var url = "/api/v1/user/" + userid + "/watchlist";
     data = {};
     data.series_id = series;
     $.ajax({
-      url: url,
-      type: "DELETE",
-      data: data,
-      success: function(resp) {
-        if (resp["status"] == 200) {
-          var table = $('#table').DataTable();
-          var index = $('#table').dataTable().fnFindCellRowIndexes(series, 0, 1);
-          $('#tooltip').remove();
-          table.row(index).remove();
-          table.draw();
-          
-          createAlert("success", name + " successfully deleted from watchlist");
+        url: url,
+        type: "POST",
+        data: data,
+        success: function(resp) {
+            createAlert("success", name + " successfully added to watchlist");
+        },
+        error: function(resp) {
+            createAlert("danger", name + " is already on watchlist");
         }
-      }
     });
-  }
-}
-
-function addToWatchlist(userid, series, name) {
-  var url = "/api/v1/user/" + userid + "/watchlist";
-  data = {};
-  data.series_id = series;
-  $.ajax({
-    url: url,
-    type: "POST",
-    data: data,
-    success: function(resp) {
-        createAlert("success", name + " successfully added to watchlist");
-    }
-  });
 }
 
 function watchedChanged(checkbox, userid, series, episode, season, name) {
@@ -172,11 +183,10 @@ function addWatched(userid, series, episode, season, name) {
         type: "POST",
         data: data,
         success: function(resp) {
-            if(resp["status"] == 200) {
-                createAlert("success", name + " successfully added as watched");
-            } else {
-                createAlert("error", "Something went wrong. Please refresh.")
-            }
+            createAlert("success", name + " successfully added as watched");
+        },
+        error: function(resp) {
+            createAlert("danger", "Something went wrong. Please refresh.")
         }
     })
 }
@@ -191,11 +201,10 @@ function removeWatched(userid, series, episode, season, name) {
         type: "DELETE",
         data: data,
         success: function(resp) {
-            if(resp["status"] == 200) {
-                createAlert("success", name + " successfully removed from watched");
-            } else {
-                createAlert("error", "Something went wrong. Please refresh.")
-            }
+            createAlert("success", name + " successfully removed from watched");
+        },
+        error: function(resp) {
+            createAlert("danger", "Something went wrong. Please refresh.")
         }
     })
 }
