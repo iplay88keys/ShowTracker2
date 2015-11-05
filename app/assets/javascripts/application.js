@@ -173,6 +173,58 @@ function watchedChanged(checkbox, userid, series, episode, season, name) {
     }
 }
 
+function watchedAllChanged(checkbox, userid, series, season) {
+    var checked = checkbox.checked;
+    if(deleteItem()) {
+        $('#table tr td input[type="checkbox"]').each(function() {
+            $(this).prop('checked', checked);
+        });
+
+        if(checked) {
+            addAllWatched(userid, series, season);
+        } else {
+            removeAllWatched(userid, series, season);
+        }
+    } else {
+        checkbox.prop('checked', !checked)
+    }
+}
+
+function addAllWatched(userid, series, season) {
+    var url = "/api/v1/series/" + series;
+    data = {};
+    data.user_id = userid;
+    if(season) {
+        data.season_id = season;
+    }
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        success: function(resp) {
+            createAlert("success", "Successfully added all as watched");
+        }
+    })
+}
+
+function removeAllWatched(userid, series, season) {
+    var url = "/api/v1/series/" + series;
+    data = {};
+    data.user_id = userid;
+    if(season) {
+        data.season_id = season;
+    }
+    $.ajax({
+        url: url,
+        type: "DELETE",
+        data: data,
+        success: function(resp) {
+            createAlert("success", "Successfully removed all from watched");
+        }
+    })
+
+}
+
 function addWatched(userid, series, episode, season, name) {
     var url = "/api/v1/series/" + series + "/episode/" + episode;
     data = {};

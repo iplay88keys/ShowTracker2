@@ -12,7 +12,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Watched</th>
+              <th><input type='checkbox' onClick="watchedAllChanged(this, <%= current_user.id %>, <%= extras['series_id'] %>, <%= extras['season_id'] ? extras['season_id'] : -1 %>)" <%= 'checked' if watches.length == episodes.length %>/>Watched</th>
               <th>Season</th>
               <th>Episode</th>
               <th>Name</th>
@@ -24,7 +24,7 @@
             <% episodes.each do |episode| %>
               <tr>
                 <td><%= episode.id %></td>
-                <td><input type='checkbox' onClick="watchedChanged(this, <%= current_user.id %>, <%= id %>, <%= episode.id %>, <%= episode.season_id %>, '<%= j episode.name %>')" <%= 'checked' if watches.include? episode.id %>/></td>
+                <td><input type='checkbox' onChange="watchedChanged(this, <%= current_user.id %>, <%= id %>, <%= episode.id %>, <%= episode.season_id %>, '<%= j episode.name %>')" <%= 'checked' if watches.include? episode.id %>/></td>
                 <td><%= episode.season_number != 0 ? episode.season_number : "Special" %></td>
                 <td><%= episode.episode_number %></td>
                 <td><%= episode.name %></td>
@@ -43,7 +43,3 @@
     <% end %>
   </div>
 </div>
-
-<%= watches.each do |watch| %>
-
-<% end %>

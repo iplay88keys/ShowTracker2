@@ -37,5 +37,63 @@ class SeriesController < ApplicationController
         season[0] = "Specials"
       end
     end
+    @seasons.sort_by! {|x| [x[0].to_s, x[1].to_s]}
+  end
+  
+  def addAllWatched
+    user_id = params[:user_id]
+    series_id = params[:series_id]
+    
+    if params[:season_id]
+      season_id = params[:season_id]
+      episodes = Episode.where(series_id: series_id, season_id: season_id).pluck('id')
+      ActiveRecord::Base.transaction do
+        episodes.each do |episode|
+          if Watch.where(user_id: user_id, episode_id: episode, series_id: series_id, season_id: season_id).first == nil
+            Watch.create(user_id: user_id, episode_id: episode, series_id: series_id, season_id: season_id)
+          end
+        end
+      end
+    else
+      episodes = Episode.where(series_id: series_id).pluck('id, season_id')
+      
+      ActiveRecord::Base.transaction do
+        episodes.each do |episode|
+          if Watch.where(user_id: user_id, episode_id: episode.id, series_id: series_id, season_id: episode.season_id).first == nil
+            Watch.create(user_id: user_id, episode_id: episode.id, series_id: series_id, season_id: episode.season_id)
+          end
+        end
+      end
+    end
+
+    payload = {
+      error: "The episodes were successfully marked as watched",
+      status: 200
+    }
+    render :json => payload, :status => :ok
+  end
+
+  def removeAllWatched
+    user_id = params[:user_id]
+    series_id = params[:series_id]
+    
+    if params[:season_id]
+      season_id = params[:season_id]
+      elements = Watch.where(user_id: user_id, series_id: series_id, season_id: season_id)
+    else
+      elements = Watch.where(user_id: user_id, series_id: series_id)
+    end
+
+    ActiveRecord::Base.transaction do
+      elements.each do |element|
+        element.destroy
+      end
+    end
+
+    payload = {
+      message: "The episodes were successfully marked as unwatched",
+      status: 200
+    }
+    render :json => payload, :status => :ok
   end
 end

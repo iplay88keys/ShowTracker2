@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       post 'user/:id/watchlist' => 'lst#addToWatchlist'
       delete 'user/:id/watchlist' => 'lst#removeFromWatchlist'
       get 'series/:series_id' => 'series#show'
+      post 'series/:series_id' => 'series#addAllWatched'
+      delete 'series/:series_id' => 'series#removeAllWatched'
       get 'series/:series_id/season/all' => 'season#all'
       get 'series/:series_id/season/:season_id' => 'season#show'
       get 'series/:series_id/episode/:ep_id' => 'episode#show'
