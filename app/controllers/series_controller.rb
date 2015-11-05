@@ -31,13 +31,13 @@ class SeriesController < ApplicationController
     # Get the count of seasons and season names (usually numbers)
     @seasons = Episode.where(series_id: @id).uniq.pluck('season_number, season_id')
     @seasons_count = @seasons.length
+    @seasons.sort!
     # Remove the "0" season and replace with "Specials" as per the TVDB database's naming convention
     @seasons.each do |season|
       if season[0] == 0
         season[0] = "Specials"
       end
     end
-    @seasons.sort_by! {|x| [x[0].to_s, x[1].to_s]}
   end
   
   def addAllWatched
