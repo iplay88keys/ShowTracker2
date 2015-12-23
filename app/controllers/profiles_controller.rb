@@ -1,7 +1,5 @@
 class ProfilesController < ApplicationController
-  include MustBeLoggedIn
-
-  before_action :prevent_access
+  before_action :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   # GET /profiles/1

@@ -15,6 +15,11 @@
 //= require bootstrap-sprockets
 //= require holder
 //= require_tree .
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('Accept', 'vnd.showtracker.v1');
+    }
+});
 
 $(".table-lst").ready(function() {
     if($('.table-lst').length == 0) return;
@@ -124,8 +129,9 @@ jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch
 
 function deleteFromWatchlist(userid, series, name) {
     if(deleteItem()) {
-        var url = "/api/v1/user/" + userid + "/watchlist";
+        var url = "/watchlist";
         data = {};
+        data.user_id = userid
         data.series_id = series;
         $.ajax({
             url: url,
@@ -141,15 +147,16 @@ function deleteFromWatchlist(userid, series, name) {
                 createAlert("success", name + " successfully deleted from watchlist");
             },
             error: function(resp) {
-                createAlert("error", "Something went wrong. Please refresh.")
+                createAlert("danger", "Something went wrong. Please refresh.")
             }
         });
     }
 }
 
 function addToWatchlist(userid, series, name) {
-    var url = "/api/v1/user/" + userid + "/watchlist";
+    var url = "/watchlist";
     data = {};
+    data.user_id = userid
     data.series_id = series;
     $.ajax({
         url: url,
@@ -191,10 +198,10 @@ function watchedAllChanged(checkbox, userid, series, season) {
 }
 
 function addAllWatched(userid, series, season) {
-    var url = "/api/v1/series/" + series;
+    var url = "/series/" + series;
     data = {};
     data.user_id = userid;
-    if(season) {
+    if(season != -1) {
         data.season_id = season;
     }
     $.ajax({
@@ -203,12 +210,15 @@ function addAllWatched(userid, series, season) {
         data: data,
         success: function(resp) {
             createAlert("success", "Successfully added all as watched");
+        },
+        error: function(resp) {
+            createAlert("danger", "Something went wrong. Please refresh.");
         }
     })
 }
 
 function removeAllWatched(userid, series, season) {
-    var url = "/api/v1/series/" + series;
+    var url = "/series/" + series;
     data = {};
     data.user_id = userid;
     if(season) {
@@ -220,13 +230,16 @@ function removeAllWatched(userid, series, season) {
         data: data,
         success: function(resp) {
             createAlert("success", "Successfully removed all from watched");
+        },
+        error: function(resp) {
+            createAlert("danger", "Something went wrong. Please refresh.");
         }
     })
 
 }
 
 function addWatched(userid, series, episode, season, name) {
-    var url = "/api/v1/series/" + series + "/episode/" + episode;
+    var url = "/series/" + series + "/episode/" + episode;
     data = {};
     data.user_id = userid;
     data.season_id = season;
@@ -244,7 +257,7 @@ function addWatched(userid, series, episode, season, name) {
 }
 
 function removeWatched(userid, series, episode, season, name) {
-    var url = "/api/v1/series/" + series + "/episode/" + episode;
+    var url = "/series/" + series + "/episode/" + episode;
     data = {};
     data.user_id = userid;
     data.season_id = season;

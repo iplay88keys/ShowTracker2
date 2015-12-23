@@ -6,7 +6,7 @@ module GetProfile
   def has_profile
     if user_signed_in?
         unless current_user.profile 
-            redirect_to new_profile_path, alert: 'please make a profile before you continue'
+            redirect_to new_profile_path, notice: 'please make a profile before you continue'
         end
     end
   end
