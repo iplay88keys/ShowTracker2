@@ -1,7 +1,7 @@
 module Api
   module V1
-    class SeriesController < ApplicationController
-      #before_action :doorkeeper_authorize!
+    class SeriesController < BaseController
+      before_action :doorkeeper_authorize!
       
       def show
         series_id = params[:series_id]

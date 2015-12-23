@@ -1,7 +1,7 @@
 module Api
   module V1
-    class EpisodeController < ApplicationController
-      #before_action :doorkeeper_authorize!
+    class EpisodeController < BaseController
+      before_action :doorkeeper_authorize!
       
       def addWatched
         if Watch.addWatched(params[:ep_id], params[:user_id], params[:series_id], params[:season_id])

@@ -2,6 +2,7 @@ require 'api_constraints'
 
 Rails.application.routes.draw do
   use_doorkeeper
+  root 'pages#home', :as => :root
   root 'pages#home', :as => :home
 
   #get 'pages/about'
