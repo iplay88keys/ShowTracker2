@@ -6,8 +6,6 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @apikeys = ApiKey.where(user_id: current_user.id)
-    puts "HERE "
-    puts @apikeys
   end
 
   # GET /profiles/new

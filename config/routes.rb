@@ -5,15 +5,16 @@ Rails.application.routes.draw do
 
   #get 'pages/about'
 
-  resources :profiles
+  resources :profiles, :except => :index
+
+  get 'profiles/:user_id/generate_key' => 'profiles#generate_key', :as =>:generate
+
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'search/' => 'search#search', :as => :search
   get 'search/:query' => 'search#search'
-
-  get 'profiles/:user_id/generate_key' => 'profiles#generate_key', :as =>:generate
-
+  
   get 'watchlist' => 'lst#show'
   post 'watchlist' => 'lst#addToWatchlist'
   delete 'watchlist' => 'lst#removeFromWatchlist'
