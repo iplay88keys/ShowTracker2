@@ -1,7 +1,8 @@
 module Api
   module V1
     class LstController < BaseController
-      before_action :doorkeeper_authorize!
+      include Authenticate
+      before_action :restrict_access
       
       def addToWatchlist
         if Lst.addSeries(params[:id], params[:series_id])

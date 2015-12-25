@@ -17,5 +17,20 @@
             </div>
         </div>
     </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>My Api Keys</h3>
+            </div>
+            <div class="panel-body">
+              <% if @apikeys %>
+                <% @apikeys.each do |key| %>
+                  <%= key.access_token %>
+                <% end %>
+              <% end %>
+              <%= button_to 'Generate New Key', generate_path(@profile), :class => "btn btn-default", method: :get %>
+            </div>
+        </div>
+    </div>
 </div>
 

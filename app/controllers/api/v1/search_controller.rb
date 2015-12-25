@@ -1,7 +1,8 @@
 module Api
   module V1
     class SearchController < BaseController
-      before_action :doorkeeper_authorize!
+      include Authenticate
+      before_action :restrict_access
       
       def search(remote = false)
         results = Series.search(params[:query], remote)

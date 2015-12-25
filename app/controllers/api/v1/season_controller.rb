@@ -1,15 +1,18 @@
 module Api
   module V1
     class SeasonController < BaseController
-      before_action :doorkeeper_authorize!
+      include Authenticate
+      before_action :restrict_access
       
       def show
-        returned = Episode.getEpisodesForSeasonWithWatches(current_user.id, params[:series_id], params[:season_id])
+        @current_user ||= current_user.id
+        returned = Episode.getEpisodesForSeasonWithWatches(@current_user, params[:series_id], params[:season_id])
         render json: returned
       end
 
       def all
-        returned = Episode.getAllEpisodesWithWatches(current_user.id, params[:series_id])
+        @current_user ||= current_user.id
+        returned = Episode.getAllEpisodesWithWatches(@current_user, params[:series_id])
         render json: returned
       end
     end

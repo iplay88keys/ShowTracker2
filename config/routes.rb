@@ -1,8 +1,6 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  use_doorkeeper
-  root 'pages#home', :as => :root
   root 'pages#home', :as => :home
 
   #get 'pages/about'
@@ -13,6 +11,8 @@ Rails.application.routes.draw do
 
   get 'search/' => 'search#search', :as => :search
   get 'search/:query' => 'search#search'
+
+  get 'profiles/:user_id/generate_key' => 'profiles#generate_key', :as =>:generate
 
   get 'watchlist' => 'lst#show'
   post 'watchlist' => 'lst#addToWatchlist'

@@ -5,6 +5,9 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @apikeys = ApiKey.where(user_id: current_user.id)
+    puts "HERE "
+    puts @apikeys
   end
 
   # GET /profiles/new
@@ -71,6 +74,14 @@ class ProfilesController < ApplicationController
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def generate_key
+    key = ApiKey.new
+    key.user_id = params[:user_id]
+    key.expires_at = Time.now + 3.month
+    key.save!
+    redirect_to profile_path(params[:user_id])
   end
 
   # DELETE /profiles/1
