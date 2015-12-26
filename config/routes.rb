@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      get 'watchlist' => 'lst#show'
       get 'search/:query' => 'search#search'
       get 'searchremote/:query' => 'search#searchRemote'
       get 'user/:id/watchlist' => 'lst#show'

@@ -37,8 +37,15 @@ module Api
       end
 
       def show
-        results = Lst.getWatchlistForUser(params[:id])
-        render json: results
+        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
+        if params[:id]
+          user = params[:id]
+        end
+
+        results = Lst.getWatchlistForUser(user)
+        output = {}
+        output["watchlist"] = results
+        render json: output
       end
     end
   end
