@@ -3,3 +3,6 @@
 This is a personal project to create a website that pulls from TVDB to keep track of tv show episodes watched.
 
 Show Tracker is built with Ruby on Rails 4.2 and is currently being worked on.
+
+[Todo:]
+-Make sure users can only change their lists (compare userid with session id)
