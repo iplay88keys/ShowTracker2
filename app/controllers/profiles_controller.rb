@@ -82,6 +82,26 @@ class ProfilesController < ApplicationController
     redirect_to profile_path(params[:user_id])
   end
 
+  def delete_key
+    user_id = params[:user_id]
+    key = params[:key]
+    @key = ApiKey.where(key: key).first
+    if @key != nil && @key.user_id == user_id
+      @key.destroy
+      payload = {
+        message: "The key was successfully removed",
+        status: 200
+      }
+      render :json => payload, :status => :ok
+    else
+      payload = {
+        error: "The key couldn't be removed",
+        status: 304
+      }
+      render :json => payload, :status => :not_modified
+    end
+  end
+
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   #def destroy

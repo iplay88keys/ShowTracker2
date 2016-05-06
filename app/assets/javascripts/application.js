@@ -274,6 +274,31 @@ function removeWatched(userid, series, episode, season, name) {
     })
 }
 
+function APIKeyDelete(userid, key) {
+    if(deleteItem()) {
+        removeAPIKey(userid, key); 
+    }
+}
+
+function removeAPIKey(userid, key) {
+    var url = "/profile/" + userid + "/delete_key/" + key;
+    data = {};
+    data.user_id = userid;
+    data.key = key;
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        success: function(resp) {
+            $('li:contains(' + key + ')').remove();
+            createAlert("success", "Successfully removed key");
+        },
+        error: function(resp) {
+            createAlert("danger", "Something went wrong. Please refresh.");
+        }
+    })
+}
+
 function deleteItem() {
   if (confirm("Are you sure? This cannot be undone.")) {
     return true;

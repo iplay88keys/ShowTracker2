@@ -24,9 +24,11 @@
             </div>
             <div class="panel-body">
               <% if @apikeys %>
+                <ul>
                 <% @apikeys.each do |key| %>
-                  <%= key.access_token %>
+                  <li><%= key.access_token %> <button onClick="APIKeyDelete(<%= current_user.id %>, <%= key.access_token %>,)" class="btn btn-warning">Remove Key</button></li>
                 <% end %>
+                </ul>
               <% end %>
               <%= button_to 'Generate New Key', generate_path(@profile), :class => "btn btn-default", method: :get %>
             </div>

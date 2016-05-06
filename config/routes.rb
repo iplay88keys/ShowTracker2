@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :profiles, :except => :index
 
   get 'profiles/:user_id/generate_key' => 'profiles#generate_key', :as =>:generate
-
+  post 'profiles/:user_id/delete_key/:key' => 'profiles#delete_key'
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
 

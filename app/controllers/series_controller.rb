@@ -39,7 +39,6 @@ class SeriesController < ApplicationController
   end
 
   def removeAllWatched
-    puts "here"
     if Watch.removeAllWatched(params[:user_id], params[:series_id], params[:season_id])
       payload = {
         message: "The episodes were successfully marked as unwatched",
