@@ -281,7 +281,7 @@ function APIKeyDelete(userid, key) {
 }
 
 function removeAPIKey(userid, key) {
-    var url = "/profile/" + userid + "/delete_key/" + key;
+    var url = "/profiles/" + userid + "/delete_key/" + key;
     data = {};
     data.user_id = userid;
     data.key = key;
