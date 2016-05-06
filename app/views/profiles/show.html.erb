@@ -26,7 +26,7 @@
               <% if @apikeys %>
                 <ul class="api-keys">
                 <% @apikeys.each do |key| %>
-                  <li><%= key.access_token %> <button onClick="APIKeyDelete(<%= current_user.id %>, <%= key.access_token %>)" class="btn btn-warning">Remove Key</button></li>
+                  <li><%= key.access_token %> <button onClick="APIKeyDelete(<%= current_user.id %>, '<%= key.access_token %>')" class="btn btn-sm btn-warning">Remove Key</button></li>
                 <% end %>
                 </ul>
               <% end %>
