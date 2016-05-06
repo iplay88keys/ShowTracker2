@@ -85,7 +85,7 @@ class ProfilesController < ApplicationController
   def delete_key
     user_id = params[:user_id]
     key = params[:key]
-    @key = ApiKey.where(key: key).first
+    @key = ApiKey.where(access_token: key).first
     if @key != nil && @key.user_id == user_id
       @key.destroy
       payload = {
