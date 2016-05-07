@@ -8882,21 +8882,32 @@ div.overview {
   max-width: 100%;
 }
 
-/* line 78, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
+/* line 79, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
 .login-container {
-  margin: auto;
-  width: auto;
-}
-
-/* line 83, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
-.new-user {
-  max-width: 300px;
+  max-width: 400px;
   padding: 20px 30px 30px;
   margin: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  -mox-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 88, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
-.new-user input[type="text"], .new-user input[type="password"] {
+/* line 91, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
+.login-container input[type="checkbox"] {
+  margin-bottom: 10px;
+}
+/* line 95, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
+.login-container input[type="text"], .login-container input[type="password"], .login-container input[type="email"] {
   margin-bottom: 15px;
   padding: 7px 9px;
   width: 100%;
+}
+/* line 101, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
+.login-container h2 {
+  margin-top: 0px;
+}
+
+/* line 106, /home/jeremy/Dropbox/Programs/ShowTracker2/app/assets/stylesheets/application.scss */
+.api-keys > thead > tr > th {
+  text-align: center;
 }

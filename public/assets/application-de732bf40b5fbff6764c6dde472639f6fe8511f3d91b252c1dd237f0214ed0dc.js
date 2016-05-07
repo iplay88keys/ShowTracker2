@@ -19378,7 +19378,7 @@ function removeAPIKey(userid, key) {
         type: "POST",
         data: data,
         success: function(resp) {
-            $('li:contains(' + key + ')').remove();
+            $('.api-keys tr td:contains(' + key + ')').parent().remove();
             createAlert("success", "Successfully removed key");
         },
         error: function(resp) {

@@ -24,11 +24,26 @@
             </div>
             <div class="panel-body">
               <% if @apikeys %>
-                <ul class="api-keys">
-                <% @apikeys.each do |key| %>
-                  <li><%= key.access_token %> <button onClick="APIKeyDelete(<%= current_user.id %>, '<%= key.access_token %>')" class="btn btn-sm btn-warning">Remove Key</button></li>
-                <% end %>
-                </ul>
+                <div class="table-responsive">
+                  <table class="table table-condensed table-bordered api-keys">
+                    <thead>
+                      <tr>
+                        <th style="width:70%;">Key</th>
+                        <th style="width:30%;">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% @apikeys.each do |key| %>
+                      <tr>
+                        <td><%= key.access_token %></td>
+                        <td>
+                          <button onClick="APIKeyDelete(<%= current_user.id %>, '<%= key.access_token %>')" class="btn btn-sm btn-warning">Remove Key</button>
+                        </td>
+                      </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
               <% end %>
               <%= button_to 'Generate New Key', generate_path(@profile), :class => "btn btn-default", method: :get %>
             </div>
