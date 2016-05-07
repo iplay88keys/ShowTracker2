@@ -28,16 +28,32 @@
                   <table class="table table-condensed table-bordered api-keys">
                     <thead>
                       <tr>
-                        <th style="width:70%;">Key</th>
-                        <th style="width:30%;">Delete</th>
+                        <th style="width:60%;">Key</th>
+                        <th style="width:20%;">QR Code</th>
+                        <th style="width:20%;">Delete</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <% @apikeys.each do |key| %>
+                    <% @apikeys.each do |element| %>
                       <tr>
-                        <td><%= key.access_token %></td>
+                        <td><%= element["access_token"] %></td>
                         <td>
-                          <button onClick="APIKeyDelete(<%= current_user.id %>, '<%= key.access_token %>')" class="btn btn-sm btn-warning">Remove Key</button>
+                          <table class="qr-table">
+                           <% element["qr"].modules.each_index do |x| -%>
+                             <tr>
+                             <% element["qr"].modules.each_index do |y| -%>
+                              <% if element["qr"].dark?(x,y) -%>
+                              <td class="black"/>
+                              <% else -%>
+                              <td class="white"/>
+                              <% end -%>
+                             <% end -%>
+                             </tr>
+                           <% end -%>
+                          </table>
+                        </td>
+                        <td>
+                          <button onClick="APIKeyDelete(<%= current_user.id %>, '<%= element['access_token'] %>')" class="btn btn-sm btn-warning">Remove Key</button>
                         </td>
                       </tr>
                     <% end %>

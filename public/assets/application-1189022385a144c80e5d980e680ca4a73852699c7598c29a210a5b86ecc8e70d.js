@@ -19149,7 +19149,6 @@ $(".table-season").ready(function() {
             'orderData': [2,3]
         }]
     });
-    
 });
 
 $(document).ready(function() {
@@ -19188,6 +19187,15 @@ $(document).ready(function() {
         } else {
             $('.password').css('display','none');
         }
+    });
+
+    $('[data-toggle=popover]').popover({
+
+       content: $('.qr-popover').html(),
+       html: true
+
+    }).click(function() {
+       $(this).popover('show');
     });
 });
 

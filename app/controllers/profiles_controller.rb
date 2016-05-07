@@ -1,11 +1,16 @@
 class ProfilesController < ApplicationController
+  require 'rqrcode'
   before_action :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @apikeys = ApiKey.where(user_id: current_user.id)
+    keys = ApiKey.where(user_id: current_user.id)
+    @apikeys = []
+    keys.each do |key|
+      @apikeys << {'access_token' => key.access_token, 'qr' => RQRCode::QRCode.new(key.access_token, :size => 4, :level => :h)}
+    end
   end
 
   # GET /profiles/new

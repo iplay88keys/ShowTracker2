@@ -11,6 +11,8 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+# QR codes
+gem 'rqrcode', '~> 0.10.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
