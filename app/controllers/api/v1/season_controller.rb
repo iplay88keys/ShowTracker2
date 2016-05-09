@@ -3,7 +3,6 @@ module Api
     class SeasonController < BaseController
       include Authenticate
       before_action :restrict_access
-      protect_from_forgery with: :null_session
       
       def show
         user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
