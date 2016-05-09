@@ -3,7 +3,7 @@ module Api
     class EpisodeController < BaseController
       include Authenticate
       before_action :restrict_access
-protect_from_forgery with: :null_session
+      protect_from_forgery with: :null_session
       
       def addWatched
         user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
