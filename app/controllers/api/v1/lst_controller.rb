@@ -3,6 +3,7 @@ module Api
     class LstController < BaseController
       include Authenticate
       before_action :restrict_access
+      protect_from_forgery with: :null_session
       
       def addToWatchlist
         if Lst.addSeries(params[:id], params[:series_id])
