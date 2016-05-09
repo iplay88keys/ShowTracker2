@@ -5,7 +5,8 @@ module Api
       before_action :restrict_access
       
       def addWatched
-        if Watch.addWatched(params[:ep_id], params[:user_id], params[:series_id], params[:season_id])
+        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
+        if Watch.addWatched(params[:ep_id], user, params[:series_id], params[:season_id])
           payload = {
             message: "The episode was successfully marked as watched",
             status: 200
@@ -21,7 +22,8 @@ module Api
       end
 
       def removeWatched
-        if Watch.removeWatched(params[:ep_id], params[:user_id], params[:series_id], params[:season_id])
+        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
+        if Watch.removeWatched(params[:ep_id], user, params[:series_id], params[:season_id])
           payload = {
             message: "The episode was successfully marked as unwatched",
             status: 200
