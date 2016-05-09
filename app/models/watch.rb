@@ -6,7 +6,9 @@ class Watch < ActiveRecord::Base
   def self.addWatched(episode_id, user_id, series_id, season_id)
     
     if Watch.where(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id).first == nil
-      Watch.create(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id)
+      temp = Watch.create(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id)
+      puts temp.inspect
+      puts temp
       return true
     else
       return false
