@@ -4,9 +4,8 @@ class Watch < ActiveRecord::Base
   belongs_to :series
 
   def self.addWatched(episode_id, user_id, series_id, season_id)
-    puts user_id
     if Watch.where(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id).first == nil
-      temp = Watch.create(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id)
+      Watch.create(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id)
       return true
     else
       return false
@@ -15,7 +14,7 @@ class Watch < ActiveRecord::Base
 
   def self.removeWatched(episode_id, user_id, series_id, season_id)
     element = Watch.where(user_id: user_id, episode_id: episode_id, series_id: series_id, season_id: season_id).first
-
+    
     if element != nil
       element.destroy
       return true
@@ -25,7 +24,6 @@ class Watch < ActiveRecord::Base
   end
 
   def self.addAllWatched(user_id, series_id, season_id = nil)
-    puts season_id.inspect
     if season_id != nil
       episodes = Episode.where(series_id: series_id, season_id: season_id).pluck('id')
       ActiveRecord::Base.transaction do

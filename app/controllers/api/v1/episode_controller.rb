@@ -6,7 +6,8 @@ module Api
       skip_before_filter :verify_authenticity_token
       
       def addWatched
-        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
+        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])[0]
+
         if Watch.addWatched(params[:ep_id], user, params[:series_id], params[:season_id])
           payload = {
             message: "The episode was successfully marked as watched",
@@ -23,7 +24,7 @@ module Api
       end
 
       def removeWatched
-        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])
+        user = Authenticate.getKeyUser(request.headers["HTTP_AUTHORIZATION"])[0]
         if Watch.removeWatched(params[:ep_id], user, params[:series_id], params[:season_id])
           payload = {
             message: "The episode was successfully marked as unwatched",
