@@ -24,7 +24,7 @@ class Series < ActiveRecord::Base
       end
     end
     
-    info = Series.where(id: series_id).select('name, poster_thumb, banner, banner_thumb, overview').first
+    info = Series.where(id: series_id).select('id, name, poster_thumb, banner, banner_thumb, overview').first
     # Get the count of seasons and season names (usually numbers)
     seasons = Episode.where(series_id: series_id).uniq.pluck('season_number, season_id')
     seasons_count = seasons.length
