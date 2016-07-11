@@ -7,12 +7,11 @@ module Api
       def search(remote = false)
         results = Series.search(params[:query], remote)
 
-        output = {}
-        output["query"] = params[:query]
-        output["remote"] = remote
-        output["results"] = results
-
-        render json: output
+        respond_to do |format|
+          render json: params[:query]
+          render json: remote
+          render :json => results.to_json(:only => [:id, :name, :banner, :overview, :status], :methods => [:banner_url])
+        end
       end
 
       def searchRemote

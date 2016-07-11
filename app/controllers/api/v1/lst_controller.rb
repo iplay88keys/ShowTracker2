@@ -44,9 +44,8 @@ module Api
         end
 
         results = Lst.getWatchlistForUser(user)
-        output = {}
-        output["watchlist"] = results
-        render json: output
+
+        render :json => results.to_json(:only => [:id, :name, :banner, :overview, :status], :methods => [:banner_url])
       end
     end
   end

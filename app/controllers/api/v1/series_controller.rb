@@ -8,7 +8,7 @@ module Api
         series_id = params[:series_id]
 
         results = Series.getSeasons(series_id)
-        render json: results
+        render :json => results.to_json(:methods => [:banner_url, :poster_url])
       end
     end
   end

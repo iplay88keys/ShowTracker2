@@ -15,6 +15,14 @@ class Series < ActiveRecord::Base
     medium: '165x240>'
   }
 
+  def banner_url
+    banner.url(:thumb)
+  end
+
+  def poster_url
+    poster.url(:medium)
+  end
+
   def self.getSeasons(series_id)
     # First check to see if there are any existing episodes in our db for the series
     if Episode.where(series_id: series_id).first == nil
