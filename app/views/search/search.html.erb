@@ -20,7 +20,7 @@
             <td><%= series.id %></td>
             <td><%= series.name %>
               <div class='img-box'>
-                <img src='<%= series.banner_thumb ||= "holder.js/271x50?text=#{series.name}" %>' data-src='<%= "holder.js/271x50?text=#{series.name}" %>' />
+                <img src='<%= series.banner.url(:medium) %>' />
               </div>
             </td>
             <td>

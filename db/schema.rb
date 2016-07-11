@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222001100) do
+ActiveRecord::Schema.define(version: 20160710025312) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.string   "user_id"
+    t.string   "expires_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "episodes", force: :cascade do |t|
     t.integer  "series_id"
@@ -43,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151222001100) do
     t.string   "scopes"
   end
 
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
@@ -56,9 +67,9 @@ ActiveRecord::Schema.define(version: 20151222001100) do
     t.string   "scopes"
   end
 
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: :cascade do |t|
     t.string   "name",                      null: false
@@ -70,36 +81,7 @@ ActiveRecord::Schema.define(version: 20151222001100) do
     t.datetime "updated_at"
   end
 
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
-
-  create_table "opro_auth_grants", force: :cascade do |t|
-    t.string   "code"
-    t.string   "access_token"
-    t.string   "refresh_token"
-    t.text     "permissions"
-    t.datetime "access_token_expires_at"
-    t.integer  "user_id"
-    t.integer  "application_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "opro_auth_grants", ["access_token"], name: "index_opro_auth_grants_on_access_token", unique: true
-  add_index "opro_auth_grants", ["code"], name: "index_opro_auth_grants_on_code", unique: true
-  add_index "opro_auth_grants", ["refresh_token"], name: "index_opro_auth_grants_on_refresh_token", unique: true
-
-  create_table "opro_client_apps", force: :cascade do |t|
-    t.string   "name"
-    t.string   "app_id"
-    t.string   "app_secret"
-    t.text     "permissions"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "opro_client_apps", ["app_id", "app_secret"], name: "index_opro_client_apps_on_app_id_and_app_secret", unique: true
-  add_index "opro_client_apps", ["app_id"], name: "index_opro_client_apps_on_app_id", unique: true
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
@@ -111,15 +93,19 @@ ActiveRecord::Schema.define(version: 20151222001100) do
 
   create_table "series", force: :cascade do |t|
     t.string   "name"
-    t.string   "poster"
-    t.string   "poster_thumb"
-    t.string   "banner"
-    t.string   "banner_thumb"
     t.string   "overview"
     t.string   "status"
     t.integer  "last_updated"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "banner_file_name"
+    t.string   "banner_content_type"
+    t.integer  "banner_file_size"
+    t.datetime "banner_updated_at"
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -137,8 +123,8 @@ ActiveRecord::Schema.define(version: 20151222001100) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "watches", force: :cascade do |t|
     t.integer  "episode_id"

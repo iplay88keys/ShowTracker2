@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.2.4"
+#ruby "~> 2.2.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -9,9 +9,14 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg', '>= 0.15.0'
+  gem 'pg'
   gem 'rails_12factor'
 end
+
+# Image storage
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 # QR codes
 gem 'rqrcode', '~> 0.10.1'
 # Use SCSS for stylesheets

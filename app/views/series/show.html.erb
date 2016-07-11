@@ -3,10 +3,10 @@
 <% end %>
 <div class='container'> 
   <div class='col-md-2' id="poster">
-    <img src='<%= @info.poster_thumb ||= 'holder.js/165x240?text=No Poster Found' %>' data-src='holder.js/165x240?text=No Poster Found'/>
+    <img src='<%= @info.poster.url(:medium) %>' />
   </div>
   <div class='col-md-10' id='overview'>
-    <img class='banner' src='<%= @info.banner ||= "holder.js/271x50?text=#{@info.name}" %>' data-src='<%= "holder.js/271x50?text=#{@info.name}" %>' />
+    <img class='banner' src='<%= @info.banner.url(:original) %>' />
     <div class='seasons'>
       <strong>Season:</strong>
       <% @seasons.each do |season| %>

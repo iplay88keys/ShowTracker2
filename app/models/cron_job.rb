@@ -25,7 +25,7 @@ class CronJob < ActiveRecord::Base
           if element != nil && element.last_updated < time
             client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
             result = client.find_series_by_id(id)
-            element.update_attributes(name: result.series_name, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
+            element.update_attributes(name: result.series_name, banner: URI.parse(result.banner) ? result.banner : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
           end
         end
         
@@ -37,7 +37,7 @@ class CronJob < ActiveRecord::Base
           if element != nil && element.last_updated < time
             client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
             result = client.find_episode_by_id(id)
-            element.update_attributes(name: result.series_name, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
+            element.update_attributes(name: result.series_name, banner: URI.parse(result.banner) ? result.banner : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
           end
         end
         
@@ -50,7 +50,7 @@ class CronJob < ActiveRecord::Base
           if element != nil && element.last_updated < time && type == "series"
             client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
             result = client.find_series_by_id(id)
-            element.update_attributes(banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil)
+            element.update_attributes(banner: URI.parse(result.banner) ? result.banner : nil)
           end
         end
       end

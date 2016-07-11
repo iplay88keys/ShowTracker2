@@ -5,14 +5,14 @@ class Episode < ActiveRecord::Base
 
   def self.getEpisodesForSeasonWithWatches(user_id, series_id, season_id)
     watches = Watch.where(user_id: user_id, series_id: series_id, season_id: season_id).pluck('episode_id')
-    info = Series.where(id: series_id).select('poster_thumb, name').first
+    info = Series.where(id: series_id).first
     
     extras = {}
     extras["season_id"] = season_id
     extras["series_id"] = series_id
 
     # Get a list of all episodes in that series with a matching season_id
-    episodes = Episode.where(series_id: series_id, season_id: season_id).select('id, season_id, season_number, episode_number, name')
+    episodes = Episode.where(series_id: series_id, season_id: season_id)
 
     output = {}
     output["watches"] = watches
@@ -26,7 +26,7 @@ class Episode < ActiveRecord::Base
 
   def self.getAllEpisodesWithWatches(user_id, series_id)
     watches = Watch.where(user_id: user_id, series_id: series_id).pluck('episode_id')
-    info = Series.where(id: series_id).select('poster_thumb, name').first
+    info = Series.where(id: series_id).first
     
     extras = {}
     extras["series_id"] = series_id

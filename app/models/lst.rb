@@ -13,7 +13,7 @@ class Lst < ActiveRecord::Base
         client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
         result = client.find_series_by_id(series_id)
         # Create a new series
-        @series = Series.create(id: result.id, name: result.series_name, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
+        @series = Series.create(id: result.id, name: result.series_name, banner: URI.parse(result.banner) ? result.banner : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
       end
       return true
     else
@@ -24,7 +24,7 @@ class Lst < ActiveRecord::Base
   def self.removeSeries(user_id, series_id)
     # Get the watchlist item
     element = Lst.where(user_id: user_id).where(series_id: series_id).first
-    puts element
+
     if element != nil
       element.destroy
       return true
@@ -36,7 +36,7 @@ class Lst < ActiveRecord::Base
   def self.getWatchlistForUser(user_id)
     results = []
     # See someone else's list (or via api)
-    results = Series.joins(:lst).where('lsts.user_id = ?', user_id).select('series.id, series.name, series.banner, series.banner_thumb, series.overview').all
+    results = Series.joins(:lst).where('lsts.user_id = ?', user_id).all
 
     return results
   end

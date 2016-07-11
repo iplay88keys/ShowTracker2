@@ -6,6 +6,14 @@ class Series < ActiveRecord::Base
   has_many :users, through: :watches
   has_many :episodes, through: :watches
   has_many :watches
+  has_attached_file :banner, styles: {
+    thumb: '271x50>',
+    medium: '300x300>'
+  }
+
+  has_attached_file :poster, styles: {
+    medium: '165x240>'
+  }
 
   def self.getSeasons(series_id)
     # First check to see if there are any existing episodes in our db for the series
@@ -24,7 +32,7 @@ class Series < ActiveRecord::Base
       end
     end
     
-    info = Series.where(id: series_id).select('id, name, poster_thumb, banner, banner_thumb, overview').first
+    info = Series.where(id: series_id).first
     # Get the count of seasons and season names (usually numbers)
     seasons = Episode.where(series_id: series_id).uniq.pluck('season_number, season_id')
     seasons_count = seasons.length
@@ -46,7 +54,6 @@ class Series < ActiveRecord::Base
   def self.search(query, remote)
     # Search the remote database if remote is true
     if remote
-      puts "searching remote"
       # Create the client
       client = Tvdbr::Client.new(Rails.application.secrets.tvdb_api_key)
       results = client.find_all_series_by_title(query)
@@ -55,7 +62,7 @@ class Series < ActiveRecord::Base
       results.each do |result|
         if Series.where(id: result.id).first == nil
           result = client.find_series_by_id(result.id)
-          Series.create(id: result.id, name: result.series_name, poster: result.poster ? result.poster : nil, poster_thumb: result.poster ? result.poster.gsub(/banners\//, "banners/_cache/") : nil, banner: result.banner ? result.banner : nil, banner_thumb: result.banner ? result.banner.gsub(/banners\//, "banners/_cache/") : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
+          Series.create(id: result.id, name: result.series_name, poster: result.poster ? URI.parse(result.poster) : nil, banner: result.banner ? URI.parse(result.banner) : nil, overview: result.overview == nil ? "" : result.overview, status: result.status, last_updated: result.lastupdated.to_i)
         end
       end
     end
@@ -67,8 +74,7 @@ class Series < ActiveRecord::Base
     # Search based on the terms
     terms.each do |term|
       # Search the series names
-      queryResults = Series.where("series.name ilike ?", "%#{term}%").select('series.id, series.name, series.banner, series.banner_thumb, series.overview')
-      
+      queryResults = Series.where("series.name ilike ?", "%#{term}%")
       # Insert the result into our array to be returned
       queryResults.each do |queryResult|
         insert = true
@@ -92,4 +98,7 @@ class Series < ActiveRecord::Base
 
     return results
   end
+
+  validates_attachment_content_type :poster, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :banner, :content_type => /\Aimage\/.*\Z/
 end
