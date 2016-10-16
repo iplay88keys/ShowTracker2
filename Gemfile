@@ -13,6 +13,9 @@ group :production do
   gem 'rails_12factor'
 end
 
+# Cors
+gem 'rack-cors', :require => 'rack/cors'
+
 # Image storage
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'

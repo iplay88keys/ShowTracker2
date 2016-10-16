@@ -125,6 +125,7 @@ GEM
     pg (0.18.4)
     pkg-config (1.1.7)
     rack (1.6.4)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -221,6 +222,7 @@ DEPENDENCIES
   nokogiri
   paperclip
   pg
+  rack-cors
   rails (= 4.2.0)
   rails_12factor
   rqrcode (~> 0.10.1)
