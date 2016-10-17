@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       get 'series/:series_id/season/all' => 'season#all'
       get 'series/:series_id/season/:season_id' => 'season#show'
       get 'series/:series_id/episode/:ep_id' => 'episode#show'
-      post 'series/:series_id/episode/:ep_id' => 'episode#addWatched'
+      post 'series/:series_id/season/:season_id/episode/:ep_id' => 'episode#addWatched'
       delete 'series/:series_id/season/:season_id/episode/:ep_id' => 'episode#removeWatched'
     end
   end
