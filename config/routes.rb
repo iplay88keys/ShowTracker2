@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       get 'searchremote/:query' => 'search#searchRemote'
       get 'user/:id/watchlist' => 'lst#show'
       post 'user/:id/watchlist' => 'lst#addToWatchlist'
-      delete 'user/:id/watchlist' => 'lst#removeFromWatchlist'
+      delete 'user/:id/watchlist/:series_id' => 'lst#removeFromWatchlist'
       get 'series/:series_id' => 'series#show'
       post 'series/:series_id' => 'series#addAllWatched'
       delete 'series/:series_id' => 'series#removeAllWatched'
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       get 'series/:series_id/season/:season_id' => 'season#show'
       get 'series/:series_id/episode/:ep_id' => 'episode#show'
       post 'series/:series_id/episode/:ep_id' => 'episode#addWatched'
-      delete 'series/:series_id/episode/:ep_id' => 'episode#removeWatched'
+      delete 'series/:series_id/season/:season_id/episode/:ep_id' => 'episode#removeWatched'
     end
   end
 end
