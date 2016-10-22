@@ -16,7 +16,11 @@ module Authenticate
 
   def authenticate_token
     authenticate_or_request_with_http_token do |token, options|
-      ApiKey.exists?(access_token: token)
+      if ApiKey.exists?(access_token: token)
+        return true
+      else
+        return false
+      end
     end
   end
 
