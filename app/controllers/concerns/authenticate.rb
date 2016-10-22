@@ -11,14 +11,17 @@ module Authenticate
 
   private
   def restrict_access
-    #api_key = ApiKey.find_by_access_token(params[:access_token])
-    #head :unauthorized unless api_key
+    authenticate_token || render_unauthorized
+  end
+
+  def authenticate_token
     authenticate_or_request_with_http_token do |token, options|
-      if ApiKey.exists?(access_token: token)
-        return true
-      else
-        return false
-      end
+      ApiKey.exists?(access_token: token)
     end
+  end
+
+  def render_unauthorized
+    self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+    render json: 'Bad credentials', status: 401
   end
 end

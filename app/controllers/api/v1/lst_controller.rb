@@ -4,7 +4,7 @@ module Api
       include Authenticate
       before_action :restrict_access
       skip_before_filter :verify_authenticity_token
-      
+
       def addToWatchlist
         if Lst.addSeries(params[:id], params[:series_id])
           payload = {
