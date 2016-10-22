@@ -2,30 +2,27 @@ module Authenticate
   extend ActiveSupport::Concern
 
   def self.getKeyUser(token)
-    ApiKey.where(access_token: token.split(" ")[2]).pluck('user_id')
+    ApiKey.where(access_token: token.split(" ")[1]).pluck('user_id')
   end
 
   def self.getKeyExpiration(token)
-    ApiKey.where(access_token: token.split(" ")[2]).pluck('expires_at')
+    ApiKey.where(access_token: token.split(" ")[1]).pluck('expires_at')
   end
 
   private
   def restrict_access
-    authenticate_token || render_unauthorized
-  end
-
-  def authenticate_token
     authenticate_or_request_with_http_token do |token, options|
       if ApiKey.exists?(access_token: token)
         return true
       else
-        return false
+        render_unauthorized
       end
     end
   end
 
   def render_unauthorized
     self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-    render json: 'Bad credentials', status: 401
+    toRender = []
+    render json: toRender, status: 401
   end
 end
