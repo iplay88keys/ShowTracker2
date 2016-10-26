@@ -1,5 +1,7 @@
 == Show Tracker 2
 
+{<img src="https://badges.gitter.im/ShowTracker2/Lobby.svg" alt="Join the chat at https://gitter.im/ShowTracker2/Lobby">}[https://gitter.im/ShowTracker2/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge]
+
 This is a personal project to create a website that pulls from TVDB to keep track of tv show episodes watched.
 
 Show Tracker is built with Ruby on Rails 4.2 and is currently being worked on.
