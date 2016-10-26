@@ -1,11 +1,23 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  series_id: 2
+  episode_number: 1
+  name: test-series
+  season_number: 1
+  season_id: 1
+  overview: test-overview
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+two:
+  series_id: 2
+  episode_number: 2
+  name: test-series
+  season_number: 1
+  season_id: 1
+  overview: test-overview
+
+three:
+  series_id: 2
+  episode_number: 1
+  name: test-series
+  season_number: 2
+  season_id: 2
+  overview: test-overview
